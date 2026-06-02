@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Link | Tarjetas Digitales con QR</title>
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --accent: #25D366;
+            --accent-hover: #20ba5a;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: var(--white);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Contenedor Fluido y Natural */
+        .app-container {
+            width: 100%;
+            max-width: 480px; /* Mantiene apariencia de smartphone premium */
+            background-color: var(--dark);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            animation: fadeInApp 0.8s ease-out;
+        }
+
+        @keyframes fadeInApp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cabecera Estilo Premium */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            padding: 40px 24px 30px 24px;
+            text-align: center;
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px auto;
+            position: relative;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
+            animation: pulseProfile 3s infinite alternate, scaleIn 0.8s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulseProfile {
+            0% { transform: scale(1); box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4); }
+            100% { transform: scale(1.03); box-shadow: 0 15px 35px rgba(37, 99, 235, 0.7); }
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        header .subtitle {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #93c5fd;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            max-width: 320px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        /* Cuerpo de la Aplicación */
+        main {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* Sección de Botones Principales */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .btn-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-whatsapp {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-whatsapp:hover, .btn-whatsapp:active {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-call {
+            background-color: var(--white);
+            color: var(--dark);
+        }
+
+        .btn-call:hover, .btn-call:active {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .btn-plans {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-plans:hover, .btn-plans:active {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Secciones con Estilo App */
+        .section-box {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 22px;
+        }
+
+        .section-box-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Cuadrícula de características */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 14px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .feature-icon-wrapper {
+            background: rgba(37, 99, 235, 0.15);
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            font-size: 0.95rem;
+            color: var(--white);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .feature-text p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        /* Cuadrícula Ideal Para (Diseño Refinado) */
+        .niches-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .niche-item {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .niche-item:hover {
+            background: rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .niche-icon {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .niche-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .niche-item h4 {
+            font-size: 0.95rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .niche-item p {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+
+        /* Estilos de Preguntas Frecuentes (Acordeón) */
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(37, 99, 235, 0.2);
+            background: rgba(15, 23, 42, 0.65);
+        }
+
+        .faq-trigger {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            gap: 12px;
+        }
+
+        .faq-chevron {
+            color: var(--primary);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-chevron {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-inner {
+            padding: 0 16px 16px 16px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            padding-top: 12px;
+        }
+
+        .faq-list {
+            list-style: none;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .faq-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .faq-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* Estilo Botón CTA del FAQ */
+        .btn-cta-faq {
+            background: linear-gradient(135deg, var(--primary), #1d4ed8);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-cta-faq:hover, .btn-cta-faq:active {
+            background: linear-gradient(135deg, var(--primary-hover), #172554);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+        }
+
+        /* Ventana Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--dark-light);
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .modal-close-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Planes dentro de la Modal */
+        .plan-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .plan-card.popular {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .plan-card h4 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 2px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .plan-card .plan-desc {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .plan-card .price-tag {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 2px;
+        }
+
+        .plan-card .renewal-tag {
+            font-size: 0.78rem;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .plan-features li {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .plan-features li svg {
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .btn-buy-plan {
+            display: block;
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-buy-plan:hover, .btn-buy-plan:active {
+            background: var(--primary-hover);
+        }
+
+        .important-disclaimer {
+            font-size: 0.7rem;
+            color: #64748b;
+            text-align: center;
+            line-height: 1.4;
+            margin-top: 8px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 24px;
+            text-align: center;
+            background: #080c14;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: #475569;
+        }
+
+        /* WhatsApp flotante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            z-index: 99;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .whatsapp-float.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: var(--accent-hover);
+        }
+
+        /* RESPONSIVO OPTIMIZADO: Elimina los recortes en Escritorio para usar todo el fondo gris */
+        @media (min-width: 481px) {
+            body {
+                background: radial-gradient(circle at top, #1e293b 0%, #0b0f19 100%);
+                padding: 40px 0;
+            }
+            .app-container {
+                border-radius: 36px;
+                overflow: hidden;
+                height: auto;
+                min-height: auto;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            }
+            main {
+                overflow: visible;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor Estilo App Móvil -->
+    <div class="app-container">
+        
+        <!-- Cabecera -->
+        <header>
+            <div class="profile-img-container">
+                <img src="https://i.postimg.cc/kgXnqKrq/Chat-GPT-Image-1-jun-2026-11-39-44.png" class="profile-img" alt="Tarjeta Link">
+            </div>
+            <h1>Tarjeta Link</h1>
+            <div class="subtitle">Tarjetas Digitales con QR</div>
+            <p>Comparte tu información profesional de forma moderna, rápida y elegante. Conecta clientes con un solo escaneo.</p>
+        </header>
+
+        <!-- Cuerpo Interactivo -->
+        <main>
+            
+            <!-- Botones Principales -->
+            <section class="action-buttons">
+                <!-- Botón WhatsApp -->
+                <a class="btn-main btn-whatsapp" href="https://wa.me/573113031480?text=Hola,%20me%20gustaría%20recibir%20más%20información%20sobre%20las%20Tarjetas%20Digitales." target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.002-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.588 1.981 14.117.957 11.53.957c-5.439 0-9.863 4.37-9.867 9.801 0 1.73.465 3.424 1.346 4.935L1.93 21.03l5.523-1.446c1.554.846 3.167 1.291 4.793 1.292zM17.41 14.54c-.318-.16-1.883-.93-2.174-1.034-.29-.105-.503-.157-.715.162-.213.318-.82.104-1.007.318-.188.213-.376.104-.694-.055-.318-.16-1.343-.496-2.557-1.581-.944-.843-1.582-1.885-1.768-2.203-.188-.318-.02-.49.139-.648.144-.143.318-.372.478-.558.16-.186.213-.318.318-.53.106-.213.053-.4-.027-.559-.08-.16-.715-1.724-.98-2.36-.258-.62-.518-.536-.715-.546-.185-.01-.397-.012-.61-.012-.213 0-.557.08-.848.4-.29.318-1.114 1.09-1.114 2.658 0 1.567 1.14 3.085 1.299 3.3.16.213 2.243 3.424 5.434 4.802.758.328 1.35.524 1.813.67.763.243 1.457.21 2.006.128.612-.091 1.883-.77 2.148-1.486.265-.715.265-1.328.185-1.456-.08-.128-.291-.212-.609-.372z"/></svg>
+                    <span>WhatsApp</span>
+                </a>
+
+                <!-- Botón Llamar -->
+                <a class="btn-main btn-call" href="tel:+573113031480">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span>Llamar Directo</span>
+                </a>
+
+                <!-- Botón Planes -->
+                <button class="btn-main btn-plans" id="openPlansBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                    <span>Planes y Servicios</span>
+                </button>
+            </section>
+
+            <!-- ¿Por qué usar Tarjeta Link? -->
+            <section class="section-box">
+                <div class="section-box-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>¿Por qué usar Tarjeta Link?</span>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Comparte en segundos</h4>
+                            <p>Envía tu información profesional usando un código QR moderno y práctico.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Imagen profesional</h4>
+                            <p>Genera confianza con una presentación digital elegante y moderna.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Compatible con celulares</h4>
+                            <p>Tus clientes podrán abrir tu tarjeta desde cualquier smartphone.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon-wrapper">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Todo en un solo lugar</h4>
+                            <p>WhatsApp, redes sociales, ubicación, catálogo y mucho más.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ideal Para -->
+            <section class="section-box">
+                <div class="section-box-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Ideal para:</span>
+                </div>
+
+                <div class="niches-grid">
+                    <div class="niche-item">
+                        <div class="niche-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        </div>
+                        <div class="niche-text">
+                            <h4>Inmobiliarias</h4>
+                            <p>Gestiona tu inventario y permite que los clientes agenden visitas personalizadas al instante, optimizando el contacto con tus agentes.</p>
+                        </div>
+                    </div>
+
+                    <div class="niche-item">
+                        <div class="niche-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                        </div>
+                        <div class="niche-text">
+                            <h4>Técnicos</h4>
+                            <p>Muestra tu portafolio de trabajos realizados y permite un contacto directo para cotizaciones rápidas.</p>
+                        </div>
+                    </div>
+
+                    <div class="niche-item">
+                        <div class="niche-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M12 2v9M8 5h8"></path></svg>
+                        </div>
+                        <div class="niche-text">
+                            <h4>Restaurantes</h4>
+                            <p>Presenta un menú interactivo y dinámico que invita a la reserva inmediata vía WhatsApp.</p>
+                        </div>
+                    </div>
+
+                    <div class="niche-item">
+                        <div class="niche-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 8v8M8 12h8"></path></svg>
+                        </div>
+                        <div class="niche-text">
+                            <h4>Floristerías</h4>
+                            <p>Destaca tus arreglos mediante un catálogo visual atractivo que simplifica la elección del cliente.</p>
+                        </div>
+                    </div>
+
+                    <div class="niche-item">
+                        <div class="niche-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                        </div>
+                        <div class="niche-text">
+                            <h4>Emprendedores</h4>
+                            <p>Centraliza tus redes y canales de venta, proyectando una imagen de marca consolidada desde el inicio.</p>
+                        </div>
+                    </div>
+
+                    <div class="niche-item">
+                        <div class="niche-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                        </div>
+                        <div class="niche-text">
+                            <h4>Empresas</h4>
+                            <p>Estandariza la comunicación de todo tu equipo comercial, asegurando una presencia profesional coherente.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preguntas Frecuentes -->
+            <section class="section-box">
+                <div class="section-box-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <span>Preguntas Frecuentes</span>
+                </div>
+
+                <div class="faq-container">
+                    <!-- Pregunta 1 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <span>¿Qué me soluciona este servicio?</span>
+                            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-inner">
+                                <p>Tarjeta Link te ayuda a centralizar toda tu información profesional en un solo lugar y compartirla de forma rápida y moderna.</p>
+                                <p style="margin-top: 8px;">Tus clientes pueden acceder a tu WhatsApp, llamada, sitio web, ubicación, catálogo y demás información desde un único enlace o código QR.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <span>¿Qué ventajas tiene frente a una tarjeta tradicional?</span>
+                            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-inner">
+                                <p>Las tarjetas tradicionales pueden perderse, dañarse o quedar desactualizadas.</p>
+                                <p style="margin-top: 8px;">Con Tarjeta Link puedes actualizar tu información cuando sea necesario, compartirla de forma digital, incluir múltiples canales de contacto y facilitar que tus clientes se comuniquen contigo de inmediato.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <span>¿Por qué elegir Tarjeta Link?</span>
+                            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-inner">
+                                <p>Porque no entregamos solamente una tarjeta digital.</p>
+                                <p style="margin-top: 8px;">Creamos una herramienta personalizada para mejorar tu imagen profesional, facilitar el contacto con tus clientes y ayudarte a destacar frente a la competencia. Además ofrecemos diseño personalizado, configuración completa, soporte y acompañamiento.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 4 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <span>¿Para quién es este servicio?</span>
+                            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-inner">
+                                <p>Tarjeta Link es ideal para:</p>
+                                <ul class="faq-list">
+                                    <li>Inmobiliarias</li>
+                                    <li>Técnicos</li>
+                                    <li>Restaurantes</li>
+                                    <li>Floristerías</li>
+                                    <li>Emprendedores</li>
+                                    <li>Profesionales independientes</li>
+                                    <li>Empresas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 5 -->
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <span>¿Cuánto tiempo tarda la entrega?</span>
+                            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-inner">
+                                <p>La mayoría de las tarjetas digitales se entregan entre 24 y 72 horas después de recibir la información necesaria para su personalización.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón de Acción Destacado de FAQ -->
+                <a class="btn-main btn-cta-faq" href="https://wa.me/573113031480?text=Hola,%20quiero%20más%20información%20sobre%20las%20Tarjetas%20Digitales%20con%20QR" target="_blank" style="margin-top: 24px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Solicitar mi Tarjeta Digital</span>
+                </a>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Tarjeta Link. Todos los derechos reservados.</p>
+        </footer>
+
+    </div>
+
+    <!-- Ventana Modal de Planes -->
+    <div class="modal-overlay" id="plansModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Nuestros Planes</h3>
+                <button class="modal-close-btn" id="closePlansBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                
+                <!-- START -->
+                <div class="plan-card">
+                    <h4>PLAN START</h4>
+                    <p class="plan-desc">Ideal para emprendedores y negocios pequeños</p>
+                    <div class="price-tag">$100.000 COP</div>
+                    <div class="renewal-tag">Renovación anual: $80.000 COP</div>
+                    <ul class="plan-features">
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Tarjeta digital personalizada</span></li>
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>URL con nombre personalizado</span></li>
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Código QR en alta resolución</span></li>
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Botón directo a WhatsApp</span></li>
+                    </ul>
+                    <a href="https://wa.me/573113031480?text=Hola,%20me%20interesa%20el%20Plan%20Start" target="_blank" class="btn-buy-plan">Adquirir Plan</a>
+                </div>
+
+                <!-- BUSINESS -->
+                <div class="plan-card popular">
+                    <span class="plan-badge">RECOMENDADO</span>
+                    <h4>PLAN BUSINESS</h4>
+                    <p class="plan-desc">Para negocios que quieren una imagen profesional</p>
+                    <div class="price-tag">$150.000 COP</div>
+                    <div class="renewal-tag">Renovación anual: $80.000 COP</div>
+                    <ul class="plan-features">
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><strong>Todo lo del plan Start</strong></li>
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Galería de fotos interactiva</span></li>
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Google Maps integrado</span></li>
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Botón "Guardar Contacto"</span></li>
+                    </ul>
+                    <a href="https://wa.me/573113031480?text=Hola,%20me%20interesa%20el%20Plan%20Business" target="_blank" class="btn-buy-plan">Adquirir Plan</a>
+                </div>
+
+                <!-- PRO -->
+                <div class="plan-card">
+                    <h4>PLAN PRO</h4>
+                    <p class="plan-desc">Para marcas y negocios en pleno crecimiento</p>
+                    <div class="price-tag">$250.000 COP</div>
+                    <div class="renewal-tag">Renovación anual: $80.000 COP</div>
+                    <ul class="plan-features">
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><strong>Todo lo del plan Business</strong></li>
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Agendamiento de citas online</span></li>
+                        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Firma de correo profesional</span></li>
+                    </ul>
+                    <a href="https://wa.me/573113031480?text=Hola,%20me%20interesa%20el%20Plan%20Pro" target="_blank" class="btn-buy-plan">Adquirir Plan</a>
+                </div>
+
+                <div class="important-disclaimer">
+                    <strong>Información importante:</strong> Los valores de renovación anual y planes están sujetos a cambios según actualizaciones del servicio y herramientas operativas utilizadas.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp flotante fijo -->
+    <a class="whatsapp-float" id="whatsappFloat" href="https://wa.me/573113031480?text=Hola,%20me%20gustaría%20recibir%20más%20información%20sobre%20las%20Tarjetas%20Digitales." target="_blank" aria-label="Contacto por WhatsApp">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.002-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.588 1.981 14.117.957 11.53.957c-5.439 0-9.863 4.37-9.867 9.801 0 1.73.465 3.424 1.346 4.935L1.93 21.03l5.523-1.446c1.554.846 3.167 1.291 4.793 1.292zM17.41 14.54c-.318-.16-1.883-.93-2.174-1.034-.29-.105-.503-.157-.715.162-.213.318-.82.104-1.007.318-.188.213-.376.104-.694-.055-.318-.16-1.343-.496-2.557-1.581-.944-.843-1.582-1.885-1.768-2.203-.188-.318-.02-.49.139-.648.144-.143.318-.372.478-.558.16-.186.213-.318.318-.53.106-.213.053-.4-.027-.559-.08-.16-.715-1.724-.98-2.36-.258-.62-.518-.536-.715-.546-.185-.01-.397-.012-.61-.012-.213 0-.557.08-.848.4-.29.318-1.114 1.09-1.114 2.658 0 1.567 1.14 3.085 1.299 3.3.16.213 2.243 3.424 5.434 4.802.758.328 1.35.524 1.813.67.763.243 1.457.21 2.006.128.612-.091 1.883-.77 2.148-1.486.265-.715.265-1.328.185-1.456-.08-.128-.291-.212-.609-.372z"/></svg>
+    </a>
+
+    <!-- Lógica JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lógica para la ventana modal
+            const openPlansBtn = document.getElementById('openPlansBtn');
+            const closePlansBtn = document.getElementById('closePlansBtn');
+            const plansModal = document.getElementById('plansModal');
+            const whatsappFloat = document.getElementById('whatsappFloat');
+
+            openPlansBtn.addEventListener('click', () => {
+                plansModal.classList.add('active');
+                whatsappFloat.classList.add('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            const closeModal = () => {
+                plansModal.classList.remove('active');
+                whatsappFloat.classList.remove('hidden');
+                document.body.style.overflow = '';
+            };
+
+            closePlansBtn.addEventListener('click', closeModal);
+            plansModal.addEventListener('click', (e) => {
+                if (e.target === plansModal) closeModal();
+            });
+
+            // Lógica para el Acordeón (Preguntas Frecuentes)
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const trigger = item.querySelector('.faq-trigger');
+                const content = item.querySelector('.faq-content');
+
+                trigger.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+
+                    // Cerramos los demás acordeones abiertos para una navegación más limpia
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-content').style.maxHeight = null;
+                    });
+
+                    // Si el acordeón clickeado no estaba activo, lo abrimos
+                    if (!isActive) {
+                        item.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
