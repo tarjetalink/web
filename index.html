@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Pedidos Mayorista - Distribuidora Ejemplo</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f0f0f0; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .gold-gradient { background: linear-gradient(145deg, #e7c66c, #c9a043, #ad853d); box-shadow: 0 4px 6px rgba(0,0,0,0.15); }
+        .button-3d:active { transform: translateY(2px); }
+        .icon-bg { background: linear-gradient(145deg, #fde488, #d1a337); }
+        .name-color { color: #b48521; }
+        .popup-overlay { backdrop-filter: blur(4px); }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen sm:p-4">
+    <div class="w-full sm:max-w-sm mx-auto bg-white rounded-none sm:rounded-3xl overflow-hidden shadow-2xl pb-8">
+        <div class="relative text-center pb-8 bg-white">
+            <div class="absolute top-0 left-0 w-full h-[320px]">
+                <img src="https://i.postimg.cc/GhV66wwf/Chat-GPT-Image-31-jul-2026-20-14-28.png" class="w-full h-full object-cover" alt="Banner">
+                <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent"></div>
+            </div>
+            <div class="relative z-10 pt-[240px]">
+                <img src="https://i.postimg.cc/tRfr43S1/Chat-GPT-Image-31-jul-2026-19-34-37.png" class="w-32 h-32 rounded-full border-4 border-white shadow-lg mx-auto" alt="Perfil">
+                <h1 class="font-playfair text-3xl font-bold mt-4 name-color uppercase">Distribuidora Ejemplo</h1>
+                <p class="text-sm tracking-[0.2em] text-gray-500 mt-2">CENTRO DE PEDIDOS MAYORISTA</p>
+                <p class="text-sm text-gray-600 mt-4 px-6">Distribuimos productos al por mayor para comerciantes. Consulta catálogos y solicita tu cotización.</p>
+            </div>
+        </div>
+
+        <div class="p-6 space-y-4">
+            <button onclick="togglePopup('quotePopup')" class="w-full flex items-center h-14 rounded-full gold-gradient button-3d text-white font-medium uppercase tracking-wider">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center icon-bg"><i class="fas fa-clipboard-list text-2xl"></i></div>
+                <span class="flex-1 text-center">Solicitar Cotización</span>
+            </button>
+            <a href="tel:3206882366" class="w-full flex items-center h-14 rounded-full gold-gradient button-3d text-white font-medium uppercase tracking-wider">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center icon-bg"><i class="fas fa-phone-alt text-2xl"></i></div>
+                <span class="flex-1 text-center">Llamar Ahora</span>
+            </a>
+            <button onclick="togglePopup('catalogPopup')" class="w-full flex items-center h-14 rounded-full gold-gradient button-3d text-white font-medium uppercase tracking-wider">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center icon-bg"><i class="fas fa-book text-2xl"></i></div>
+                <span class="flex-1 text-center">Catálogos</span>
+            </button>
+            <a href="https://wa.me/573206882366?text=Hola,%20me%20interesa%20realizar%20un%20pedido%20mayorista,%20pero%20requiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" class="w-full flex items-center h-14 rounded-full gold-gradient button-3d text-white font-medium uppercase tracking-wider">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center icon-bg"><i class="fab fa-whatsapp text-2xl"></i></div>
+                <span class="flex-1 text-center">WhatsApp</span>
+            </a>
+        </div>
+        <div class="text-center mt-6">
+            <a href="https://tarjetalink.github.io/" target="_blank" class="text-[10px] text-gray-400 uppercase tracking-widest hover:opacity-100 opacity-50">Realizado por Tarjeta Link © 2026</a>
+        </div>
+    </div>
+
+    <div id="catalogPopup" class="fixed inset-0 hidden popup-overlay z-50 p-4">
+        <div class="bg-white max-w-sm mx-auto rounded-2xl p-6 relative shadow-2xl">
+            <button onclick="togglePopup('catalogPopup')" class="absolute top-2 right-2 text-xl">&times;</button>
+            <h2 class="font-playfair text-xl font-bold mb-4 name-color">Nuestros Catálogos</h2>
+            <div class="space-y-4">
+                <div class="border rounded-xl p-3">
+                    <p class="font-bold">🧸 Peluches</p>
+                    <p class="text-xs text-gray-600 mb-2">Gran variedad de peluches para venta al por mayor.</p>
+                    <a href="https://photos.app.goo.gl/vumbGVpDJbFS7yLw7" target="_blank" class="text-xs font-bold name-color">VER CATÁLOGO &rarr;</a>
+                </div>
+                <div class="border rounded-xl p-3">
+                    <p class="font-bold">👜 Línea de Bolsos</p>
+                    <p class="text-xs text-gray-600 mb-2">Bolsos y accesorios para distribuidores.</p>
+                    <a href="https://drive.google.com/file/d/1RUiIMpYcRejj2TBUjm01AoFgpW9DFLJK/view?usp=sharing" target="_blank" class="text-xs font-bold name-color">VER CATÁLOGO &rarr;</a>
+                </div>
+                <div class="border rounded-xl p-3">
+                    <p class="font-bold">👙 Ropa Interior</p>
+                    <p class="text-xs text-gray-600 mb-2">Catálogo de ropa interior con variedad de referencias para venta al por mayor. Ideal para comerciantes y distribuidores que buscan productos de excelente calidad.</p>
+                    <a href="https://drive.google.com/file/d/1FIcI9WIz_gsZ6kc1wrT_JLVK5vgi9rNb/view" target="_blank" class="text-xs font-bold name-color">VER CATÁLOGO &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quotePopup" class="fixed inset-0 hidden popup-overlay z-50 p-4 overflow-y-auto">
+        <div class="bg-white max-w-sm mx-auto rounded-2xl p-6 relative shadow-2xl">
+            <button onclick="togglePopup('quotePopup')" class="absolute top-2 right-2 text-xl">&times;</button>
+            <h2 class="font-playfair text-xl font-bold mb-4 name-color">Solicitar Cotización</h2>
+            <form id="quoteForm" class="space-y-3">
+                <input type="text" id="name" placeholder="Nombre Completo *" class="w-full border p-2 rounded-lg" required>
+                <input type="tel" id="phone" placeholder="Número de Contacto *" class="w-full border p-2 rounded-lg" required>
+                <input type="text" id="address" placeholder="Dirección *" class="w-full border p-2 rounded-lg" required>
+                <div id="productsSection" class="border-t pt-4 space-y-4">
+                    <h3 class="text-sm font-bold">Productos Solicitados</h3>
+                    <div class="product-item border p-2 rounded-lg space-y-2">
+                        <input type="text" class="ref w-full border p-1 rounded" placeholder="Referencia *" required>
+                        <input type="text" class="obs w-full border p-1 rounded" placeholder="Observaciones">
+                    </div>
+                </div>
+                <button type="button" onclick="addProduct()" class="text-xs underline name-color">➕ Agregar otro producto</button>
+                <button type="submit" class="w-full py-3 bg-green-600 text-white rounded-xl font-bold">📲 ENVIAR SOLICITUD</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function togglePopup(id) { document.getElementById(id).classList.toggle('hidden'); }
+        function addProduct() {
+            const container = document.getElementById('productsSection');
+            const div = document.createElement('div');
+            div.className = 'product-item border p-2 rounded-lg space-y-2';
+            div.innerHTML = `<input type="text" class="ref w-full border p-1 rounded" placeholder="Referencia *" required>
+                            <input type="text" class="obs w-full border p-1 rounded" placeholder="Observaciones">`;
+            container.appendChild(div);
+        }
+        document.getElementById('quoteForm').onsubmit = function(e) {
+            e.preventDefault();
+            let msg = `🛒 *SOLICITUD DE COTIZACIÓN*%0A%0A👤 Nombre: ${document.getElementById('name').value}%0A📱 Contacto: ${document.getElementById('phone').value}%0A📍 Dirección: ${document.getElementById('address').value}%0A%0A📦 PRODUCTOS%0A`;
+            document.querySelectorAll('.product-item').forEach((item, i) => {
+                msg += `%0AProducto ${i+1}%0AReferencia: ${item.querySelector('.ref').value}%0AObservaciones: ${item.querySelector('.obs').value}%0A━━━━━━━━━━━━━━`;
+            });
+            window.open(`https://wa.me/573206882366?text=${msg}%0A%0AGracias por contactarnos.`);
+        };
+    </script>
+</body>
+</html>
