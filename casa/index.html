@@ -1,1 +1,934 @@
 
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Tenis Shop - Sneakers & Moda Urbana</title>
+ <!-- Favicon e Iconos de Dispositivos -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.postimg.cc/bwqdwtnt/Chat-GPT-Image-5-ago-2026-13-45-50.png">
+    <link rel="shortcut icon" href="https://i.postimg.cc/bwqdwtnt/Chat-GPT-Image-5-ago-2026-13-45-50.png">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/bwqdwtnt/Chat-GPT-Image-5-ago-2026-13-45-50.png">
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Carga de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Carga de Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #000000; /* Fondo negro puro */
+            background-image: radial-gradient(circle at top, rgba(25, 216, 245, 0.12) 0%, transparent 50%);
+        }
+        /* Contenedor principal de la tarjeta con ancho exacto de plantilla */
+        .card-container {
+            width: 100%;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #050811;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Media Query para pantallas grandes */
+        @media (min-width: 450px) {
+            .card-container {
+                max-width: 420px;
+                margin: 2rem auto;
+                min-height: calc(100vh - 4rem);
+                border-radius: 24px;
+                overflow: hidden;
+            }
+        }
+
+        /* Imagen de fondo premium de boutique de tenis */
+        .main-bg {
+            background-image: linear-gradient(180deg, rgba(5, 8, 17, 0.1) 60%, #050811 100%),
+                            url('https://i.postimg.cc/SQrJv6TG/Whats-App-Image-2026-08-01-at-7-19-44-AM.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+        }
+
+        /* Sección de contenido principal */
+        .content-section {
+            background: linear-gradient(180deg, #050811 0%, #0B111E 100%);
+            margin-top: -60px;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            position: relative;
+            padding-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Contenedor de perfil idéntico en estructura */
+        .profile-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-top: -105px;
+        }
+
+        /* Foto de perfil */
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border: 5px solid #19D8F5; /* Borde turquesa de la marca */
+            box-shadow: 0 10px 20px rgba(25, 216, 245, 0.3);
+        }
+
+        /* Badge de verificación premium */
+        .verification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #19D8F5;
+            color: #000000;
+            width: 32px;
+            height: 32px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #050811;
+            box-shadow: 0 4px 10px rgba(25, 216, 245, 0.4);
+        }
+
+        /* Botones de acción principales */
+        .action-btn {
+            background: linear-gradient(135deg, #19D8F5 0%, #0FAED7 100%);
+            color: #000000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(25, 216, 245, 0.3);
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(25, 216, 245, 0.5);
+            filter: brightness(1.1);
+        }
+
+        /* Botones de la rejilla social */
+        .social-btn {
+            background-color: rgba(255, 255, 255, 0.04);
+            color: #ffffff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .social-btn:hover {
+            background-color: rgba(25, 216, 245, 0.08);
+            transform: scale(1.05);
+            border-color: #19D8F5;
+            box-shadow: 0 5px 15px rgba(25, 216, 245, 0.2);
+        }
+
+        /* Banner de pie de página */
+        .footer-banner {
+            background-color: #000000;
+            color: #FFFFFF;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- ESTILOS DE POPUPS ADAPTADOS CON BORDES TURQUESAS --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(8px);
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: #0B111E;
+            border-radius: 20px;
+            max-width: 95%;
+            width: 500px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 5px solid #19D8F5; /* Borde de la plantilla base en turquesa */
+            opacity: 0;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        .modal-header-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            color: #FFFFFF;
+            max-width: calc(100% - 40px);
+            margin: 0 auto;
+        }
+        .modal-header-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: #19D8F5;
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #FFFFFF;
+            border-radius: 99px;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .modal-close-btn:hover {
+            background-color: #19D8F5;
+            color: #000000;
+            transform: rotate(90deg);
+        }
+        
+        .whatsapp-green {
+            background-color: #25D366 !important;
+            color: #ffffff !important;
+        }
+        .whatsapp-green:hover {
+            background-color: #128C7E !important;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4) !important;
+        }
+
+        /* Personalización Scrollbar Modales */
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+        .modal-body::-webkit-scrollbar-thumb {
+            background: rgba(25, 216, 245, 0.2);
+            border-radius: 10px;
+        }
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(25, 216, 245, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <!-- SECCIÓN DE IMAGEN SUPERIOR -->
+        <div class="main-bg"></div>
+        
+        <!-- SECCIÓN DE CONTENIDO PRINCIPAL -->
+        <div class="content-section">
+            <div class="flex flex-col items-center px-6 text-center">
+                <!-- Contenedor de Foto de Perfil y Badge -->
+                <div class="profile-container">
+                    <img src="https://i.postimg.cc/wvdW1gTJ/simpliers-casatenisshop.jpg" alt="Logo Casa Tenis Shop" class="profile-pic object-cover rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/150x150/050811/19D8F5?text=Casa+Tenis'">
+                    <div class="verification-badge">
+                        <i class="fas fa-check text-sm"></i>
+                    </div>
+                </div>
+                
+                <!-- Nombre y Profesión -->
+                <h1 class="text-3xl font-bold text-white mt-4 tracking-tight">Casa Tenis Shop</h1>
+                <p class="text-md text-[#19D8F5] font-semibold uppercase mt-1 tracking-wider">Moda Urbana</p>
+                <p class="text-white opacity-90 mt-4 max-w-sm text-sm leading-relaxed whitespace-pre-line">
+Importamos lo mejor para quienes saben vestir con estilo.
+
+Descubre tenis y ropa importada de alta calidad, con acabados premium y una selección exclusiva para quienes buscan marcar la diferencia.
+
+Complementa tu outfit con nuestra línea de gorras y perfumería 100% original.
+
+Realizamos envíos seguros a todo el país y también internacionales. Será un gusto asesorarte y ayudarte a encontrar el producto ideal.
+</p>
+                
+                <!-- Botones Principales de Acción -->
+                <div class="flex flex-col sm:flex-row gap-4 w-full max-w-xs mx-auto mt-8">
+                    <div id="agendar-btn" class="action-btn flex-1 flex items-center justify-center gap-3 font-semibold py-3 rounded-full text-lg cursor-pointer">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Realizar pedido</span>
+                    </div>
+                    <a href="tel:+573206882366" class="action-btn flex-1 flex items-center justify-center gap-3 font-semibold py-3 rounded-full text-lg">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Llamar</span>
+                    </a>
+                </div>
+                
+                <p class="text-white opacity-60 mt-8 text-xs uppercase tracking-widest">Toca los íconos para interactuar</p>
+
+                <!-- Íconos de Contacto y Redes Sociales -->
+                <div class="grid grid-cols-3 gap-3 w-full max-w-sm mx-auto mt-4">
+                    <!-- Pagos -->
+                    <div id="pagos-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-credit-card text-2xl text-[#19D8F5]"></i>
+                        <span class="text-xs mt-2 font-medium">Pagos</span>
+                    </div>
+
+                    <!-- Catálogo -->
+                    <a href="https://drive.google.com/drive/folders/1K-m710qfD9Pr5T9bm8niPsmqzHWHcNSb?hl=es-419" target="_blank" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-box-open text-2xl text-[#19D8F5]"></i>
+                        <span class="text-xs mt-2 font-medium">Catálogo</span>
+                    </a>
+                    
+                    <!-- Horarios -->
+                    <div id="horario-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-clock text-2xl text-[#19D8F5]"></i>
+                        <span class="text-xs mt-2 font-medium">Horario</span>
+                    </div>
+                    
+                    <!-- Ubicación -->
+                    <a href="https://maps.app.goo.gl/CYRorwD9KHddg4o29" target="_blank" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-map-marker-alt text-2xl text-[#19D8F5]"></i>
+                        <span class="text-xs mt-2 font-medium">Ubicación</span>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a href="https://www.tiktok.com/@casatenisshop?_r=1&_t=ZS-9876clgN6Um" target="_blank" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fab fa-tiktok text-2xl"></i>
+                        <span class="text-xs mt-2 font-medium">TikTok</span>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/casatenisshop?igsh=eTVsZno3ZnRuNnRx" target="_blank" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fab fa-instagram text-2xl text-pink-500"></i>
+                        <span class="text-xs mt-2 font-medium">Instagram</span>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/share/1Aoosaj2sZ/" target="_blank" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fab fa-facebook-f text-2xl text-blue-500"></i>
+                        <span class="text-xs mt-2 font-medium">Facebook</span>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <div id="whatsapp-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl text-green-400 cursor-pointer">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                        <span class="text-xs mt-2 font-medium text-white">WhatsApp</span>
+                    </div>
+
+                    <!-- Guardar Contacto -->
+                    <div id="save-contact-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-save text-2xl text-[#19D8F5]"></i>
+                        <span class="text-xs mt-2 font-medium">Guardar</span>
+                    </div>
+
+                    <!-- Código QR -->
+                    <div id="qr-code-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-qrcode text-2xl text-[#19D8F5]"></i>
+                        <span class="text-xs mt-2 font-medium">Código QR</span>
+                    </div>
+                </div>
+
+                <!-- Texto para instalar -->
+                <div id="install-btn" class="text-white opacity-80 mt-8 text-center cursor-pointer hover:opacity-100 transition underline text-sm">
+                    ¿Cómo instalar en mi dispositivo?
+                </div>
+            </div>
+        </div>
+        
+        <!-- BANNER INFERIOR -->
+        <div class="footer-banner text-center py-4 px-4 font-semibold">
+            <p class="text-xs opacity-70">Asistente de Pedidos Premium 24/7</p>
+            <p class="text-sm mt-1 text-[#19D8F5]">Casa Tenis Shop © 2026</p>
+            <p class="text-xs opacity-50 mt-1">Calidad, estilo y comodidad en cada paso.</p>
+        </div>
+    </div>
+
+    <!-- MODAL PAGOS -->
+    <div id="pagos-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">Medios de Pago</h2>
+                <button class="modal-close-btn">×</button>
+            </div>
+            <div class="modal-body text-center" id="pagos-container">
+                <p class="text-sm mb-4">Selecciona el tipo de pago.</p>
+                <div class="flex flex-col gap-3">
+                    <button onclick="showPaymentDetails('credito')" class="w-full py-3 bg-[#19D8F5] text-black font-bold rounded-xl shadow-lg">🟢 Abono a Crédito</button>
+                    <button onclick="showPaymentDetails('contado')" class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg">🔵 Pago de Contado</button>
+                </div>
+                <div id="payment-details" class="mt-6 text-left hidden p-4 bg-white/5 rounded-xl border border-white/10"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP / MODAL DE HORARIO -->
+    <div id="horario-modal" class="modal-overlay">
+        <div class="modal-content">
+             <div class="modal-header">
+                <h2 class="modal-header-title">Horario de Atención</h2>
+                <button class="modal-close-btn">×</button>
+            </div>
+            <div class="modal-body">
+         <div class="space-y-4 text-gray-300">
+
+    <div class="flex justify-between items-center border-b border-white/10 pb-3">
+        <span class="font-semibold flex items-center gap-3">
+            <i class="far fa-calendar-alt w-5 text-center text-[#19D8F5]"></i>
+            Lunes a Sábado
+        </span>
+        <span class="font-mono bg-white/5 px-2 py-1 rounded text-sm text-[#19D8F5]">
+            12:00 PM - 8:00 PM
+        </span>
+    </div>
+
+    <div class="flex justify-between items-center">
+        <span class="font-semibold flex items-center gap-3">
+            <i class="far fa-calendar w-5 text-center text-[#19D8F5]"></i>
+            Domingos
+        </span>
+        <span class="font-mono bg-white/5 px-2 py-1 rounded text-sm text-[#19D8F5]">
+            Solo 2 domingos al mes (después de quincena)
+        </span>
+    </div>
+
+</div>
+                <p class="text-center text-[10px] text-gray-500 mt-6">¡Pedidos a través del módulo disponibles 24/7!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP / MODAL DE INSTALACIÓN -->
+    <div id="install-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">¿Cómo Instalar la App?</h2>
+                <button class="modal-close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-gray-300 mb-6 text-sm">Instala el asistente digital directo en tu pantalla de inicio para acceder rápido al catálogo y hacer tus pedidos.</p>
+                <div class="flex flex-col gap-4">
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                        <h3 class="text-md font-semibold text-white mb-2 flex items-center gap-2">
+                            <i class="fab fa-apple text-[#19D8F5]"></i> Para iPhone (iOS)
+                        </h3>
+                        <ol class="list-decimal list-inside text-gray-300 space-y-1 text-xs">
+                            <li>Abre la tarjeta en el navegador <strong>Safari</strong>.</li>
+                            <li>Toca el botón de <strong>Compartir</strong> <i class="fas fa-share-square text-xs mx-1"></i> en la barra inferior.</li>
+                            <li>Selecciona la opción de <strong>"Agregar a inicio"</strong>.</li>
+                        </ol>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                        <h3 class="text-md font-semibold text-white mb-2 flex items-center gap-2">
+                            <i class="fab fa-android text-[#19D8F5]"></i> Para Android
+                        </h3>
+                        <ol class="list-decimal list-inside text-gray-300 space-y-1 text-xs">
+                            <li>Abre la tarjeta en <strong>Google Chrome</strong>.</li>
+                            <li>Toca los <strong>tres puntos</strong> <i class="fas fa-ellipsis-v text-xs mx-1"></i> en la esquina superior.</li>
+                            <li>Selecciona <strong>"Agregar a la pantalla principal"</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- POPUP / MODAL DE CÓDIGO QR -->
+    <div id="qr-code-modal" class="modal-overlay">
+        <div class="modal-content">
+             <div class="modal-header">
+                <h2 class="modal-header-title">Escanea y Comparte</h2>
+                <button class="modal-close-btn">×</button>
+            </div>
+            <div class="modal-body text-center flex flex-col items-center">
+                <p class="text-gray-300 mb-5 text-xs">Apunta con la cámara de otro celular para transferir la tarjeta instantáneamente.</p>
+                <div class="flex justify-center p-3 bg-white rounded-2xl max-w-[200px] shadow-lg shadow-[#19D8F5]/10">
+                     <img id="qr-image" src="" alt="Código QR Casa Tenis Shop" class="rounded-lg w-full h-auto">
+                </div>
+                <p class="text-[10px] text-gray-500 mt-5">Acceso instantáneo a la tarjeta digital oficial</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP / MODAL DE PEDIDO EXPRESS DILIGENCIABLE -->
+    <div id="agendar-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">Pedido Express • Casa Tenis Shop</h2>
+                <button class="modal-close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- FORMULARIO CLIENTE -->
+                <div class="space-y-3 mb-6">
+                    <h3 class="text-xs font-bold uppercase text-[#19D8F5] tracking-widest border-b border-white/10 pb-1.5">Datos del Cliente</h3>
+                    <div>
+                        <input type="text" id="client-name" placeholder="👤 Nombre completo *" class="w-full text-sm p-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-[#19D8F5]">
+                    </div>
+                    <div>
+                        <input type="tel" id="client-phone" placeholder="📞 Celular *" class="w-full text-sm p-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-[#19D8F5]">
+                    </div>
+                    <div>
+                        <input type="text" id="client-address" placeholder="📍 Dirección de entrega *" class="w-full text-sm p-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-[#19D8F5]">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="text" id="client-city" placeholder="🏙 Ciudad *" class="w-full text-sm p-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-[#19D8F5]">
+                        <input type="text" id="client-barrio" placeholder="🏠 Barrio (Opcional)" class="w-full text-sm p-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-[#19D8F5]">
+                    </div>
+                </div>
+
+                <!-- SECCIÓN DE PRODUCTOS DINÁMICOS -->
+                <div class="space-y-3 mb-6">
+                    <h3 class="text-xs font-bold uppercase text-[#19D8F5] tracking-widest border-b border-white/10 pb-1.5 flex justify-between items-center">
+                        <span>🛍 Productos</span>
+                        <span class="text-[10px] text-gray-400 normal-case font-normal">Agrega los artículos que desees</span>
+                    </h3>
+                    
+                    <div id="products-container" class="space-y-4">
+                        <!-- Cargados dinámicamente -->
+                    </div>
+
+                    <!-- Botón agregar otro artículo -->
+                    <button type="button" id="add-product-btn" class="w-full py-2.5 px-4 bg-white/5 border border-dashed border-[#19D8F5]/30 text-[#19D8F5] text-xs font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#19D8F5]/5 transition duration-200">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Agregar otro producto</span>
+                    </button>
+                </div>
+
+                <!-- TARJETA INFORMATIVA FIJA (OBLIGATORIA) -->
+                <div class="p-4 bg-[#0d1c2b] border border-cyan-500/20 rounded-xl mb-6 flex gap-3 text-left">
+                    <div class="text-[#19D8F5] mt-0.5">
+                        <i class="fas fa-info-circle text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-1">Información importante</h4>
+                        <p class="text-[11px] text-gray-300 leading-relaxed mb-1.5">
+                            Gracias por elegir <strong>Casa Tenis Shop</strong>.
+                        </p>
+                        <p class="text-[11px] text-gray-300 leading-relaxed">
+                            Nuestro equipo de ventas revisará la disponibilidad de los productos solicitados y posteriormente se comunicará contigo para:
+                        </p>
+                        <ul class="text-[10px] text-gray-400 space-y-1 mt-1.5 pl-1 list-disc list-inside">
+                            <li>Confirmar la disponibilidad de cada producto.</li>
+                            <li>Informarte el valor total de la compra.</li>
+                            <li>Calcular el costo del envío de acuerdo con la ciudad y la dirección registrada.</li>
+                            <li>Compartirte los medios de pago disponibles.</li>
+                        </ul>
+                        <p class="text-[11px] text-gray-300 leading-relaxed mt-1.5">
+                            Una vez confirmado procederemos con el despacho de tu pedido.
+                        </p>
+                        <p class="text-[11px] text-[#19D8F5] font-semibold mt-1">
+                            ¡Gracias por confiar en Casa Tenis Shop!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- BOTÓN ENVIAR WHATSAPP -->
+                <button id="send-order-btn" class="whatsapp-green w-full flex items-center justify-center gap-2 font-bold py-3.5 rounded-xl text-sm transition shadow-md">
+                    <i class="fab fa-whatsapp text-lg"></i>
+                    <span>Enviar pedido por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP / MODAL DE WHATSAPP -->
+    <div id="whatsapp-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">Contáctanos por WhatsApp</h2>
+                <button class="modal-close-btn">×</button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-sm mb-6 text-gray-300">Selecciona el asesor con quien deseas comunicarte.</p>
+                <div class="flex flex-col gap-4">
+                    <a href="https://wa.me/573134909089?text=Hola%20Casa%20Tenis%20Shop.%0A%0A%F0%9F%91%8B%20Estoy%20interesado%20en%20sus%20productos.%0A%0AMe%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20tenis,%20ropa,%20gorras,%20perfumes%20y%20bolsos.%0A%0AQuedo%20atento.%20Muchas%20gracias." target="_blank" class="whatsapp-green w-full py-4 px-6 font-bold rounded-xl text-base shadow-lg flex items-center justify-center gap-3 transition">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>Asesor 1</span>
+                    </a>
+                    <a href="https://wa.me/573206882366?text=Hola%20Casa%20Tenis%20Shop.%0A%0A%F0%9F%91%8B%20Estoy%20interesado%20en%20sus%20productos.%0A%0AMe%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20tenis,%20ropa,%20gorras,%20perfumes%20y%20bolsos.%0A%0AQuedo%20atento.%20Muchas%20gracias." target="_blank" class="whatsapp-green w-full py-4 px-6 font-bold rounded-xl text-base shadow-lg flex items-center justify-center gap-3 transition">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>Asesor 2</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPORTAMIENTO INTERACTIVO JAVASCRIPT -->
+    <script>
+        const PUBLIC_CARD_URL = window.location.href.includes('127.0.0.1') || window.location.href.includes('localhost') 
+                                ? 'https://casatenisshop.co' 
+                                : window.location.href;
+
+        // Elementos DOM para Modales con verificación de existencia
+        const modals = {
+            horario: document.getElementById('horario-modal'),
+            install: document.getElementById('install-modal'),
+            qr: document.getElementById('qr-code-modal'),
+            agendar: document.getElementById('agendar-modal'),
+            pagos: document.getElementById('pagos-modal'),
+            whatsapp: document.getElementById('whatsapp-modal')
+        };
+
+        // Asignación de botones de cierre generales
+        document.querySelectorAll('.modal-close-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const modal = e.target.closest('.modal-overlay');
+                if (modal) closeModal(modal);
+            });
+        });
+
+        // Cerrar modales haciendo click fuera del área blanca
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModal(overlay);
+            });
+        });
+
+        function openModal(modal) {
+            if (!modal) return;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modal) {
+            if (!modal) return;
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            // Resetear detalles al cerrar si es el de pagos
+            if(modal.id === 'pagos-modal') {
+                const det = document.getElementById('payment-details');
+                det.innerHTML = '';
+                det.classList.add('hidden');
+            }
+        }
+
+        // Lógica pagos
+        window.showPaymentDetails = function(type) {
+            const container = document.getElementById('payment-details');
+            container.classList.remove('hidden');
+            if(type === 'credito') {
+                container.innerHTML = `<h4 class="font-bold mb-2">Abono a Crédito</h4><p class="text-xs">Nequi: Steven Toro - 3146362985 <button onclick="copyToClipboard('3146362985')" class="ml-2 text-[#19D8F5]">Copiar</button></p><p class="text-xs mt-2">Bancolombia: Steven Toro - Cta Ahorros - 31159560361 <button onclick="copyToClipboard('31159560361')" class="ml-2 text-[#19D8F5]">Copiar</button></p><p class="text-[10px] mt-4 opacity-70">Después del abono envía el comprobante por WhatsApp.</p>`;
+            } else {
+                container.innerHTML = `<h4 class="font-bold mb-2">Pago de Contado</h4><p class="text-xs">Bancolombia: Alba Nidia Bermúdez - Cta Ahorros - 36676232707 <button onclick="copyToClipboard('36676232707')" class="ml-2 text-[#19D8F5]">Copiar</button></p><p class="text-[10px] mt-4 opacity-70">Después del pago envía el comprobante por WhatsApp para confirmar el pedido.</p>`;
+            }
+        };
+
+        window.copyToClipboard = function(text) {
+            // Intento con Clipboard API moderna
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    console.log('Copiado exitosamente');
+                }).catch(err => {
+                    console.error('Error al copiar:', err);
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        };
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.error('Fallback falló:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        const pagosBtn = document.getElementById('pagos-btn');
+        if(pagosBtn) pagosBtn.addEventListener('click', () => openModal(modals.pagos));
+
+        // Eventos para abrir modales asegurando que existan los elementos
+        const horarioBtn = document.getElementById('horario-btn');
+        if (horarioBtn) {
+            horarioBtn.addEventListener('click', () => openModal(modals.horario));
+        }
+
+        const installBtn = document.getElementById('install-btn');
+        if (installBtn) {
+            installBtn.addEventListener('click', () => openModal(modals.install));
+        }
+
+        const agendarBtn = document.getElementById('agendar-btn');
+        if (agendarBtn) {
+            agendarBtn.addEventListener('click', () => openModal(modals.agendar));
+        }
+        
+        const whatsappBtn = document.getElementById("whatsapp-btn");
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener("click", () => {
+                openModal(modals.whatsapp);
+            });
+        }
+
+        // Generación del código QR al abrir el modal correspondiente
+        const qrCodeBtn = document.getElementById('qr-code-btn');
+        if (qrCodeBtn) {
+            qrCodeBtn.addEventListener('click', () => {
+                const qrImage = document.getElementById('qr-image');
+                if (qrImage) {
+                    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(PUBLIC_CARD_URL)}`;
+                }
+                openModal(modals.qr);
+            });
+        }
+
+        // GESTIÓN DINÁMICA DE PRODUCTOS (POPUP PEDIDO EXPRESS)
+        const productsContainer = document.getElementById('products-container');
+        const addProductBtn = document.getElementById('add-product-btn');
+        let productCount = 0;
+
+        // Agregar una fila de producto
+        function addProductRow(refVal = "", qtyVal = 1, obsVal = "") {
+            if (!productsContainer) return;
+            productCount++;
+            const productRow = document.createElement('div');
+            productRow.className = 'p-3 bg-white/5 border border-white/5 rounded-xl space-y-2 relative product-item-row';
+            productRow.id = `product-row-${productCount}`;
+
+            productRow.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Producto #${productCount}</span>
+                    ${productCount > 1 ? `
+                        <button type="button" onclick="removeProductRow(${productCount})" class="text-red-400 hover:text-red-500 text-xs flex items-center gap-1">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </button>
+                    ` : ''}
+                </div>
+                <div>
+                    <input type="text" class="prod-ref w-full text-xs p-2.5 bg-black/40 border border-white/5 text-white rounded-lg focus:outline-none focus:border-[#19D8F5]" placeholder="Referencia / Modelo (Ej: Air Force 1 Blancos) *" value="${refVal}">
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="col-span-1 flex items-center bg-black/40 border border-white/5 rounded-lg">
+                        <button type="button" onclick="adjustQty(${productCount}, -1)" class="px-2.5 text-gray-300 font-bold hover:text-white">-</button>
+                        <input type="number" class="prod-qty w-full text-center text-xs bg-transparent border-none text-white focus:outline-none font-bold" value="${qtyVal}" min="1">
+                        <button type="button" onclick="adjustQty(${productCount}, 1)" class="px-2.5 text-gray-300 font-bold hover:text-white">+</button>
+                    </div>
+                    <div class="col-span-2">
+                        <input type="text" class="prod-obs w-full text-xs p-2.5 bg-black/40 border border-white/5 text-white rounded-lg focus:outline-none focus:border-[#19D8F5]" placeholder="Color, talla, especificaciones..." value="${obsVal}">
+                    </div>
+                </div>
+            `;
+            productsContainer.appendChild(productRow);
+        }
+
+        // Eliminar fila de producto
+        window.removeProductRow = function(id) {
+            const row = document.getElementById(`product-row-${id}`);
+            if (row) {
+                row.remove();
+                reindexProducts();
+            }
+        };
+
+        // Reindexar filas restantes tras una eliminación
+        function reindexProducts() {
+            if (!productsContainer) return;
+            const rows = productsContainer.querySelectorAll('.product-item-row');
+            productCount = 0;
+            rows.forEach((row, idx) => {
+                productCount = idx + 1;
+                row.id = `product-row-${productCount}`;
+                const titleSpan = row.querySelector('span');
+                if (titleSpan) titleSpan.textContent = `Producto #${productCount}`;
+                
+                const deleteHeader = row.querySelector('.flex.justify-between.items-center');
+                const deleteBtn = deleteHeader.querySelector('button');
+                if (productCount === 1 && deleteBtn) {
+                    deleteBtn.remove();
+                } else if (productCount > 1 && !deleteBtn) {
+                    const newDeleteBtn = document.createElement('button');
+                    newDeleteBtn.type = 'button';
+                    newDeleteBtn.className = 'text-red-400 hover:text-red-500 text-xs flex items-center gap-1';
+                    newDeleteBtn.setAttribute('onclick', `removeProductRow(${productCount})`);
+                    newDeleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i> Eliminar`;
+                    deleteHeader.appendChild(newDeleteBtn);
+                } else if (deleteBtn) {
+                    deleteBtn.setAttribute('onclick', `removeProductRow(${productCount})`);
+                }
+
+                const decBtn = row.querySelector('button[onclick^="adjustQty"]');
+                const incBtn = row.querySelectorAll('button[onclick^="adjustQty"]')[1];
+                if (decBtn) decBtn.setAttribute('onclick', `adjustQty(${productCount}, -1)`);
+                if (incBtn) incBtn.setAttribute('onclick', `adjustQty(${productCount}, 1)`);
+            });
+        }
+
+        // Ajustar el número de artículos
+        window.adjustQty = function(id, offset) {
+            const row = document.getElementById(`product-row-${id}`);
+            if (row) {
+                const qtyInput = row.querySelector('.prod-qty');
+                if (qtyInput) {
+                    let val = parseInt(qtyInput.value) || 1;
+                    val = Math.max(1, val + offset);
+                    qtyInput.value = val;
+                }
+            }
+        };
+
+        // Carga inicial obligatoria de un producto
+        addProductRow();
+
+        if (addProductBtn) {
+            addProductBtn.addEventListener('click', () => {
+                addProductRow("", 1, "");
+            });
+        }
+
+        // GENERACIÓN Y DESCARGA DE ARCHIVO CONTACTO VCF
+        const saveContactBtn = document.getElementById('save-contact-btn');
+        if (saveContactBtn) {
+            saveContactBtn.addEventListener('click', () => {
+                const vcardData = [
+                    'BEGIN:VCARD',
+                    'VERSION:3.0',
+                    'N:Shop;Casa;Tenis;',
+                    'FN:Casa Tenis Shop',
+                    'ORG:Casa Tenis Shop;Sneakers & Moda Urbana',
+                    'TEL;TYPE=CELL;TYPE=PREF:+573206882366',
+                    'URL;TYPE=WORK:' + PUBLIC_CARD_URL,
+                    'NOTE:Especialistas en tenis originales, ropa de marca, gorras, perfumes y bolsos.',
+                    'END:VCARD'
+                ].join('\n');
+
+                const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Casa_Tenis_Shop.vcf');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+
+        // PROCESADOR DE MENSAJE EXPORTADO A WHATSAPP
+        const sendOrderBtn = document.getElementById('send-order-btn');
+        if (sendOrderBtn) {
+            sendOrderBtn.addEventListener('click', () => {
+                const clientName = document.getElementById('client-name').value.trim();
+                const clientPhone = document.getElementById('client-phone').value.trim();
+                const clientAddress = document.getElementById('client-address').value.trim();
+                const clientCity = document.getElementById('client-city').value.trim();
+                const clientBarrio = document.getElementById('client-barrio').value.trim();
+
+                if (!clientName) {
+                    alert("Por favor ingresa tu nombre completo.");
+                    document.getElementById('client-name').focus();
+                    return;
+                }
+                if (!clientPhone) {
+                    alert("Por favor ingresa tu celular.");
+                    document.getElementById('client-phone').focus();
+                    return;
+                }
+                if (!clientAddress) {
+                    alert("Por favor ingresa tu dirección de entrega.");
+                    document.getElementById('client-address').focus();
+                    return;
+                }
+                if (!clientCity) {
+                    alert("Por favor ingresa tu ciudad.");
+                    document.getElementById('client-city').focus();
+                    return;
+                }
+
+                const rows = productsContainer.querySelectorAll('.product-item-row');
+                let productsText = "";
+                let isValidProducts = true;
+
+                rows.forEach((row, index) => {
+                    const ref = row.querySelector('.prod-ref').value.trim();
+                    const qty = row.querySelector('.prod-qty').value.trim();
+                    const obs = row.querySelector('.prod-obs').value.trim() || "Ninguna";
+
+                    if (!ref) {
+                        alert(`Por favor especifica la referencia para el Producto #${index + 1}.`);
+                        row.querySelector('.prod-ref').focus();
+                        isValidProducts = false;
+                        return;
+                    }
+
+                    productsText += `Producto ${index + 1}\nReferencia: ${ref}\nCantidad: ${qty}\nObservaciones: ${obs}\n--------------------------------\n`;
+                });
+
+                if (!isValidProducts) return;
+
+                // Retirar último separador sobrante
+                if (productsText.endsWith('--------------------------------\n')) {
+                    productsText = productsText.substring(0, productsText.length - 33);
+                }
+
+                // Generación de mensaje en formato maestro estructurado
+                const whatsappMessage = 
+`Hola Casa Tenis Shop.
+Quiero realizar el siguiente pedido.
+
+═══════════════════
+👤 DATOS DEL CLIENTE
+Nombre: ${clientName}
+Celular: ${clientPhone}
+Dirección: ${clientAddress}
+Ciudad: ${clientCity}
+Barrio: ${clientBarrio || 'No especificado'}
+═══════════════════
+🛍 PRODUCTOS
+
+${productsText}
+═══════════════════
+Muchas gracias.
+
+Quedo atento a la confirmación de disponibilidad de los productos, valor total de la compra, costo del envío y medios de pago.`;
+
+                const whatsappNumber = "573134909089";
+                const targetUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+                window.open(targetUrl, '_blank');
+            });
+        }
+    </script>
+</body>
+</html>
+
